@@ -1,0 +1,12 @@
+/* Estilos del contenedor principal de la aplicación */
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: var(--spacing-lg);
+  }
+}
