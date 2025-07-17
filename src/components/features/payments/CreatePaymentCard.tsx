@@ -3,7 +3,7 @@ import '../../../styles/components/CreatePaymentCard.css';
 export const CreatePaymentCard = () => {
 
     const handleCreatePayment = () => {
-        alert('Crear nuevo pago');
+        
     };
     return (
         <section className="action-section">

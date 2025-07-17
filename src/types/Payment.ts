@@ -10,3 +10,7 @@ export interface Payment {
 }
 
 export type PaymentStatus = 'pendiente' | 'vencido'
+
+export interface PaymentsContextType {
+  openForm: boolean
+}
