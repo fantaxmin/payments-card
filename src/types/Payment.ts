@@ -12,5 +12,10 @@ export interface Payment {
 export type PaymentStatus = 'pendiente' | 'vencido'
 
 export interface PaymentsContextType {
-  openForm: boolean
+  openForm: boolean;
+  payments: Payment[];
+  pendingCount: number;
+  overdueCount: number;
+  handlePay: (id: string) => void;
+  addPayment: (payment: Omit<Payment, 'id'>) => void;
 }
