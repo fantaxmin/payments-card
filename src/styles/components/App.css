@@ -2,11 +2,12 @@
 .app {
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--spacing-xl);
+  padding: 0 var(--spacing-2xl);
+  width: 100%;
 }
 
 @media (max-width: 768px) {
   .app {
-    padding: var(--spacing-lg);
+    padding: 0 var(--spacing-xl);
   }
 }
