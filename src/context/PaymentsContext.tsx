@@ -43,10 +43,12 @@ const PaymentsProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
-    const addPayment = (payment: Omit<Payment, 'id'>) => {
+    const addPayment = (payment: Omit<Payment, 'id' | 'isOverdue'>) => {
         const newPayment: Payment = {
             ...payment,
-            id: self.crypto.randomUUID()
+            id: self.crypto.randomUUID(),
+            status: 'pendiente',
+            isOverdue: new Date(payment.dueDate) < new Date() // Determina
         };
         setPayments([...payments, newPayment]);
     };
