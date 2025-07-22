@@ -20,7 +20,9 @@ export const PaymentCard = ({ payment, onPay, onRemind }: PaymentCardProps) => {
       
       <p className="payment-description">{payment.description}</p>
       
-      <div className="payment-amount">{payment.amount.toFixed(2)} €</div>
+      <div className="payment-amount">{
+        new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(payment.amount)
+      }</div>
       
       <div className="payment-category">{payment.category}</div>
       
