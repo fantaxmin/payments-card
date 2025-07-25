@@ -36,10 +36,14 @@ const PaymentsProvider = ({ children }: { children: React.ReactNode }) => {
         setPayments(payments.filter(p => p.id !== id));
     };
 
+    // Función para enviar un recordatorio de pago
     const handleRemind = (id: string) => {
         const payment = payments.find(p => p.id === id);
         if (payment) {
-            alert(`Recordatorio enviado para el pago: ${payment.title}`);
+            checkPermissionNotification();
+            checkServiceWorker();
+            
+            console.warn(`Recordatorio enviado para el pago: ${payment.title}`);
         }
     };
 
@@ -52,6 +56,24 @@ const PaymentsProvider = ({ children }: { children: React.ReactNode }) => {
         };
         setPayments([...payments, newPayment]);
     };
+
+    const checkPermissionNotification = () => {
+        console.log("Comprobando permisos para enviar notificación...");
+        const permissionThatHave = Notification.permission 
+        
+        if( permissionThatHave === 'denied'|| permissionThatHave === 'default' ){
+            Notification.requestPermission()
+            .then((result) => console.log('permission that I have = ', result));
+        }
+    };
+
+    const checkServiceWorker = () => {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/public/sw.js')
+                                .then((registration) => console.log('Service Worker registrado con éxito:', registration))
+                                .catch((error) => console.error('Error al registrar el Service Worker:', error));
+        }
+    }
 
     return (
         <PaymentsContext.Provider value={{
