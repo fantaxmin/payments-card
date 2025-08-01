@@ -1,7 +1,4 @@
 export { PaymentCard } from './PaymentCard'
 export { PaymentsList } from './PaymentsList'
-<<<<<<< HEAD
-=======
 export { CreatePaymentCard } from './CreatePaymentCard'
 export { FormPaymentCard } from './FormPaymentCard'
->>>>>>> dev

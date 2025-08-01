@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import { usePayments } from './hooks/usePayments'
-import { Header } from './components/layout'
-import { PaymentsList } from './components/features/payments'
-import { CreatePaymentCard } from './components/layout/CreatePaymentCard'
-import './styles/globals.css'
-import './styles/components/App.css'
-
-function App() {
-  const { payments, pendingCount, overdueCount, handlePay, handleRemind } = usePayments()
-=======
 import { useContext } from "react";
 import { Header } from "./components/layout";
 import { CreatePaymentCard, PaymentsList, FormPaymentCard } from "./components/features/payments";
@@ -20,19 +9,11 @@ import './styles/globals.css';
 
 function App() {
   const { payments, pendingCount, overdueCount, openForm, handlePay, handleRemind } = useContext(PaymentsContext);
->>>>>>> dev
 
   return (
     <main className="app">
       <Header pendingCount={pendingCount} overdueCount={overdueCount} />
       <CreatePaymentCard />
-<<<<<<< HEAD
-      <PaymentsList 
-        payments={payments} 
-        onPay={handlePay} 
-        onRemind={handleRemind} 
-      />
-=======
       <PaymentsList
         payments={payments}
         onPay={handlePay}
@@ -41,7 +22,6 @@ function App() {
       {
         openForm && <FormPaymentCard />
       }
->>>>>>> dev
     </main>
   )
 }

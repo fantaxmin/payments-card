@@ -2,12 +2,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-<<<<<<< HEAD
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-=======
 import { PaymentsProvider } from './context/PaymentsContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
@@ -15,6 +9,5 @@ createRoot(document.getElementById('root')!).render(
     <PaymentsProvider>
       <App />
     </PaymentsProvider>
->>>>>>> dev
   </StrictMode>,
 )

@@ -20,13 +20,9 @@ export const PaymentCard = ({ payment, onPay, onRemind }: PaymentCardProps) => {
       
       <p className="payment-description">{payment.description}</p>
       
-<<<<<<< HEAD
-      <div className="payment-amount">{payment.amount.toFixed(2)} €</div>
-=======
       <div className="payment-amount">{
         new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(payment.amount)
       }</div>
->>>>>>> dev
       
       <div className="payment-category">{payment.category}</div>
       
@@ -54,8 +50,6 @@ export const PaymentCard = ({ payment, onPay, onRemind }: PaymentCardProps) => {
         >
           Recordar
         </button>
-<<<<<<< HEAD
-=======
         <button 
           className="btn btn-edit"
           onClick={() => alert('Función de edición próximamente')}
@@ -65,7 +59,6 @@ export const PaymentCard = ({ payment, onPay, onRemind }: PaymentCardProps) => {
             Editar
           </span>
         </button>
->>>>>>> dev
       </div>
     </div>
   )

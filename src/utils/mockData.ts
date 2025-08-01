@@ -6,11 +6,7 @@ export const mockPayments: Payment[] = [
     id: self.crypto.randomUUID(),
     title: 'Netflix Premium',
     description: 'Suscripción mensual',
-<<<<<<< HEAD
-    amount: 15.99,
-=======
     amount: 65000, // 15.99 EUR ≈ 65,000 COP
->>>>>>> dev
     dueDate: '14 ene 2024',
     category: PAYMENT_CATEGORIES.ENTERTAINMENT,
     status: PAYMENT_STATUS.PENDING
@@ -19,11 +15,7 @@ export const mockPayments: Payment[] = [
     id: self.crypto.randomUUID(),
     title: 'Electricidad',
     description: 'Factura de energía eléctrica',
-<<<<<<< HEAD
-    amount: 89.50,
-=======
     amount: 360000, // 89.50 EUR ≈ 360,000 COP
->>>>>>> dev
     dueDate: '09 ene 2024',
     category: PAYMENT_CATEGORIES.BASIC_SERVICES,
     status: PAYMENT_STATUS.OVERDUE,
@@ -33,11 +25,7 @@ export const mockPayments: Payment[] = [
     id: self.crypto.randomUUID(),
     title: 'Internet Fibra',
     description: 'Plan 100MB',
-<<<<<<< HEAD
-    amount: 45.00,
-=======
     amount: 180000, // 45.00 EUR ≈ 180,000 COP
->>>>>>> dev
     dueDate: '19 ene 2024',
     category: PAYMENT_CATEGORIES.TELECOMMUNICATIONS,
     status: PAYMENT_STATUS.PENDING
