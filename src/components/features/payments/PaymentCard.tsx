@@ -54,7 +54,7 @@ export const PaymentCard = ({ payment, onPay, onRemind }: PaymentCardProps) => {
           className="btn btn-edit"
           onClick={() => alert('Función de edición próximamente')}
         >
-          <span style={{display: 'flex', alignItems: 'center', gap: '6px'}}>
+          <span className="btn-edit-content">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
             Editar
           </span>
