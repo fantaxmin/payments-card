@@ -107,6 +107,12 @@
   gap: var(--spacing-md);
 }
 
+.btn-edit-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 @media (max-width: 768px) {
   .payment-actions {
     flex-direction: column;

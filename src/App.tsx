@@ -8,7 +8,7 @@ import './styles/globals.css';
 
 
 function App() {
-  const { payments, pendingCount, overdueCount, openForm, handlePay, handleRemind } = useContext(PaymentsContext);
+  const { payments, pendingCount, overdueCount, openForm, handlePay, handleRemind, handleEdit, paymentToEdit } = useContext(PaymentsContext);
 
   return (
     <main className="app">
@@ -18,9 +18,10 @@ function App() {
         payments={payments}
         onPay={handlePay}
         onRemind={handleRemind}
+        onEdit={handleEdit}
       />
       {
-        openForm && <FormPaymentCard />
+        openForm && <FormPaymentCard payment={paymentToEdit} />
       }
     </main>
   )

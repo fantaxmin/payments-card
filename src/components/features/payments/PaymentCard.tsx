@@ -6,9 +6,10 @@ interface PaymentCardProps {
   payment: Payment
   onPay: (id: string) => void
   onRemind: (id: string) => void
+  onEdit: (id: string) => void
 }
 
-export const PaymentCard = ({ payment, onPay, onRemind }: PaymentCardProps) => {
+export const PaymentCard = ({ payment, onPay, onRemind, onEdit }: PaymentCardProps) => {
   return (
     <div className={`payment-card ${payment.status}`}>
       <div className="payment-header">
@@ -33,7 +34,7 @@ export const PaymentCard = ({ payment, onPay, onRemind }: PaymentCardProps) => {
       {payment.isOverdue && (
         <div className="overdue-notice">
           ⚠️ Pago Vencido
-          <p>Este pago está atrasado. Procesa el pago lo antes posible.</p>
+          <p>Este pago está pronto a vencer. Procesa el pago lo antes posible.</p>
         </div>
       )}
 
@@ -52,9 +53,9 @@ export const PaymentCard = ({ payment, onPay, onRemind }: PaymentCardProps) => {
         </button>
         <button 
           className="btn btn-edit"
-          onClick={() => alert('Función de edición próximamente')}
+          onClick={() => onEdit(payment.id)}
         >
-          <span style={{display: 'flex', alignItems: 'center', gap: '6px'}}>
+          <span className="btn-edit-content">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
             Editar
           </span>

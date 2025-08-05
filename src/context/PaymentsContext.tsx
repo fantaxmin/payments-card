@@ -1,6 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import type { PaymentsContextType, Payment } from "../types/Payment";
 import { mockPayments } from "../utils/mockData";
+import { getPayments, savePayments } from '../services/paymentsStorage';
 
 // Valores por defecto para el contexto
 const defaultContext: PaymentsContextType = {
@@ -8,9 +9,12 @@ const defaultContext: PaymentsContextType = {
     payments: [],
     pendingCount: 0,
     overdueCount: 0,
+    paymentToEdit: null,
     handlePay: () => {},
     handleRemind: () => {},
+    handleEdit: () => {},
     addPayment: () => {},
+    updatePayment: () => {},
     toggleForm: () => {}
 };
 
@@ -20,8 +24,31 @@ const PaymentsProvider = ({ children }: { children: React.ReactNode }) => {
     // Estado para controlar la visibilidad del formulario de creación de pagos
     const [openForm, setOpenForm] = useState(false);
 
-    // Inicializamos el estado de los pagos
-    const [payments, setPayments] = useState<Payment[]>(mockPayments);
+    // Estado para el pago que se está editando
+    const [paymentToEdit, setPaymentToEdit] = useState<Payment | null>(null);
+
+    // Estado de los pagos
+    const [payments, setPayments] = useState<Payment[]>([]);
+    // Cargar pagos desde localStorage al montar
+    useEffect(() => {
+        (async () => {
+            const stored = await getPayments();
+            if (stored.length > 0) {
+                setPayments(stored);
+            } else {
+                setPayments(mockPayments);
+                await savePayments(mockPayments);
+            }
+        })();
+    }, []);
+
+    // Guardar pagos en localStorage cada vez que cambian
+    useEffect(() => {
+        // Solo guardar si hay pagos (evita sobrescribir con array vacío en la primera carga)
+        if (payments.length > 0) {
+            savePayments(payments);
+        }
+    }, [payments]);
 
     const toggleForm = () => {
         setOpenForm(!openForm);
@@ -33,7 +60,7 @@ const PaymentsProvider = ({ children }: { children: React.ReactNode }) => {
     // Función para avisar que un pago ha sido realizado
     // (en este caso, simplemente lo eliminamos de la lista)
     const handlePay = (id: string) => {
-        setPayments(payments.filter(p => p.id !== id));
+        setPayments(prev => prev.filter(p => p.id !== id));
     };
 
     // Función para enviar un recordatorio de pago
@@ -52,9 +79,21 @@ const PaymentsProvider = ({ children }: { children: React.ReactNode }) => {
             ...payment,
             id: self.crypto.randomUUID(),
             status: 'pendiente',
-            isOverdue: new Date(payment.dueDate) < new Date() // Determina
+            isOverdue: new Date(payment.dueDate) < new Date()
         };
-        setPayments([...payments, newPayment]);
+        setPayments(prev => [...prev, newPayment]);
+        setOpenForm(false);
+        setPaymentToEdit(null);
+    };
+
+    const updatePayment = (id: string, payment: Omit<Payment, 'id'>) => {
+        setPayments(prev => prev.map(p => 
+            p.id === id 
+                ? { ...payment, id, isOverdue: new Date(payment.dueDate) < new Date() }
+                : p
+        ));
+        setOpenForm(false);
+        setPaymentToEdit(null);
     };
 
     const checkPermissionNotification = () => {
@@ -75,15 +114,30 @@ const PaymentsProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }
 
+    const handleEdit = (id: string) => {
+        try {
+            const payment = payments.find(p => p.id === id);
+            if (payment) {
+                setPaymentToEdit(payment);
+                setOpenForm(true);
+            }
+        } catch (error) {
+            console.error('Error al editar el pago:', error);
+        }
+    }
+
     return (
         <PaymentsContext.Provider value={{
             openForm,
             payments,
             pendingCount,
             overdueCount,
+            paymentToEdit,
             handlePay,
             handleRemind,
+            handleEdit,
             addPayment,
+            updatePayment,
             toggleForm
         }}>
             {children}

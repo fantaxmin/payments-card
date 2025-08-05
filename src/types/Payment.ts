@@ -21,9 +21,12 @@ export interface PaymentsContextType {
   payments: Payment[];
   pendingCount: number;
   overdueCount: number;
+  paymentToEdit: Payment | null;
   handlePay: (id: string) => void;
   handleRemind: (id: string) => void;
+  handleEdit: (id: string) => void;
   addPayment: (payment: Omit<Payment, 'id'>) => void;
+  updatePayment: (id: string, payment: Omit<Payment, 'id'>) => void;
   toggleForm: () => void;
 };
 >>>>>>> dev
