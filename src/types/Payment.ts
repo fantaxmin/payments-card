@@ -7,11 +7,6 @@ export interface Payment {
   category: string
   status: 'pendiente' | 'vencido'
   isOverdue?: boolean
-<<<<<<< HEAD
-}
-
-export type PaymentStatus = 'pendiente' | 'vencido'
-=======
 };
 
 export type PaymentStatus = 'pendiente' | 'vencido';
@@ -29,4 +24,3 @@ export interface PaymentsContextType {
   updatePayment: (id: string, payment: Omit<Payment, 'id'>) => void;
   toggleForm: () => void;
 };
->>>>>>> dev
