@@ -6,9 +6,10 @@ interface PaymentsListProps {
   payments: Payment[]
   onPay: (id: string) => void
   onRemind: (id: string) => void
+  onEdit: (id: string) => void
 }
 
-export const PaymentsList = ({ payments, onPay, onRemind }: PaymentsListProps) => {
+export const PaymentsList = ({ payments, onPay, onRemind, onEdit }: PaymentsListProps) => {
   return (
     <div className="payments-grid">
       {payments.map(payment => (
@@ -17,6 +18,7 @@ export const PaymentsList = ({ payments, onPay, onRemind }: PaymentsListProps) =
           payment={payment}
           onPay={onPay}
           onRemind={onRemind}
+          onEdit={onEdit}
         />
       ))}
     </div>

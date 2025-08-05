@@ -8,9 +8,12 @@ const defaultContext: PaymentsContextType = {
     payments: [],
     pendingCount: 0,
     overdueCount: 0,
+    paymentToEdit: null,
     handlePay: () => {},
     handleRemind: () => {},
+    handleEdit: () => {},
     addPayment: () => {},
+    updatePayment: () => {},
     toggleForm: () => {}
 };
 
@@ -19,6 +22,9 @@ const PaymentsContext = createContext<PaymentsContextType>(defaultContext);
 const PaymentsProvider = ({ children }: { children: React.ReactNode }) => {
     // Estado para controlar la visibilidad del formulario de creación de pagos
     const [openForm, setOpenForm] = useState(false);
+
+    // Estado para el pago que se está editando
+    const [paymentToEdit, setPaymentToEdit] = useState<Payment | null>(null);
 
     // Inicializamos el estado de los pagos
     const [payments, setPayments] = useState<Payment[]>(mockPayments);
@@ -52,9 +58,21 @@ const PaymentsProvider = ({ children }: { children: React.ReactNode }) => {
             ...payment,
             id: self.crypto.randomUUID(),
             status: 'pendiente',
-            isOverdue: new Date(payment.dueDate) < new Date() // Determina
+            isOverdue: new Date(payment.dueDate) < new Date()
         };
         setPayments([...payments, newPayment]);
+        setOpenForm(false);
+        setPaymentToEdit(null);
+    };
+
+    const updatePayment = (id: string, payment: Omit<Payment, 'id'>) => {
+        setPayments(payments.map(p => 
+            p.id === id 
+                ? { ...payment, id, isOverdue: new Date(payment.dueDate) < new Date() }
+                : p
+        ));
+        setOpenForm(false);
+        setPaymentToEdit(null);
     };
 
     const checkPermissionNotification = () => {
@@ -75,15 +93,30 @@ const PaymentsProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }
 
+    const handleEdit = (id: string) => {
+        try {
+            const payment = payments.find(p => p.id === id);
+            if (payment) {
+                setPaymentToEdit(payment);
+                setOpenForm(true);
+            }
+        } catch (error) {
+            console.error('Error al editar el pago:', error);
+        }
+    }
+
     return (
         <PaymentsContext.Provider value={{
             openForm,
             payments,
             pendingCount,
             overdueCount,
+            paymentToEdit,
             handlePay,
             handleRemind,
+            handleEdit,
             addPayment,
+            updatePayment,
             toggleForm
         }}>
             {children}
