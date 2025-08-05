@@ -1,69 +1,81 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Payments Card
 
-Currently, two official plugins are available:
+Aplicación web para la gestión y recordatorio de pagos, desarrollada con React, TypeScript y Vite.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Descripción
 
-## Expanding the ESLint configuration
+Payments Card es una app que permite crear, editar, eliminar y recordar pagos pendientes o vencidos. Los datos se almacenan de forma persistente en el navegador usando LocalStorage, pero la arquitectura está preparada para migrar fácilmente a una base de datos o backend en el futuro.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tecnologías utilizadas
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **React 19**: Librería principal para la construcción de interfaces de usuario.
+- **TypeScript**: Tipado estático para mayor robustez y mantenibilidad.
+- **Vite**: Herramienta de build y desarrollo ultrarrápida.
+- **ESLint**: Linter para mantener la calidad y consistencia del código.
+- **CSS Modules**: Organización de estilos por componente.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Estructura del proyecto
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+├── public/
+│   └── sw.js
+├── src/
+│   ├── assets/                # Imágenes y recursos estáticos
+│   ├── components/
+│   │   ├── features/
+│   │   │   └── payments/      # Componentes principales de pagos (Card, Form, List, etc)
+│   │   └── layout/            # Componentes de layout y estructura general
+│   ├── constants/             # Constantes globales (categorías, estados, etc)
+│   ├── context/               # Contexto global de pagos (PaymentsContext)
+│   ├── hooks/                 # Custom hooks
+│   ├── services/              # Lógica de persistencia (paymentsStorage)
+│   ├── styles/                # Archivos CSS globales y por componente
+│   ├── types/                 # Tipos y contratos TypeScript
+│   └── utils/                 # Utilidades y datos mock
+├── index.html
+├── package.json
+├── tsconfig*.json
+└── vite.config.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Principales funcionalidades
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Listado de pagos pendientes y vencidos
+- Crear, editar y eliminar pagos
+- Recordatorio de pagos (con integración lista para notificaciones push)
+- Persistencia local automática (LocalStorage)
+- Arquitectura desacoplada para migrar a backend fácilmente
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Buenas prácticas aplicadas
+
+- **Separación de responsabilidades**: Lógica de UI, contexto y persistencia bien diferenciadas.
+- **Componentes reutilizables**: Cada parte de la UI es un componente autocontenible.
+- **Tipado estricto**: Uso de TypeScript en todo el proyecto.
+- **Persistencia centralizada**: Todas las operaciones de almacenamiento pasan por `src/services/paymentsStorage.ts`.
+- **Fácil migración a backend**: Solo hay que cambiar la implementación de las funciones de storage.
+- **Estilos organizados**: Un CSS por componente y estilos globales separados.
+- **Linter y configuración estricta**: ESLint y tsconfig con reglas estrictas para evitar errores comunes.
+
+## ¿Cómo correr el proyecto?
+
+1. Clona el repositorio
+2. Instala dependencias:
+   ```bash
+   npm install
+   ```
+3. Inicia el entorno de desarrollo:
+   ```bash
+   npm run dev
+   ```
+4. Abre [http://localhost:5173](http://localhost:5173) en tu navegador
+
+## Futuras mejoras
+
+- Integración con backend y autenticación
+- Notificaciones push reales (OneSignal u otros)
+- Tests unitarios y de integración
+- Mejoras de accesibilidad y mobile
+
+---
+Proyecto desarrollado con buenas prácticas de arquitectura, escalabilidad y mantenibilidad en mente.
