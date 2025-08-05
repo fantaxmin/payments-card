@@ -44,7 +44,10 @@ const PaymentsProvider = ({ children }: { children: React.ReactNode }) => {
 
     // Guardar pagos en localStorage cada vez que cambian
     useEffect(() => {
-        savePayments(payments);
+        // Solo guardar si hay pagos (evita sobrescribir con array vacío en la primera carga)
+        if (payments.length > 0) {
+            savePayments(payments);
+        }
     }, [payments]);
 
     const toggleForm = () => {

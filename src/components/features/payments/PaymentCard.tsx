@@ -34,7 +34,7 @@ export const PaymentCard = ({ payment, onPay, onRemind, onEdit }: PaymentCardPro
       {payment.isOverdue && (
         <div className="overdue-notice">
           ⚠️ Pago Vencido
-          <p>Este pago está atrasado. Procesa el pago lo antes posible.</p>
+          <p>Este pago está pronto a vencer. Procesa el pago lo antes posible.</p>
         </div>
       )}
 
