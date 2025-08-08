@@ -62,11 +62,11 @@ Payments Card es una app que permite crear, editar, eliminar y recordar pagos pe
 1. Clona el repositorio
 2. Instala dependencias:
    ```bash
-   npm install
+   bun install
    ```
 3. Inicia el entorno de desarrollo:
    ```bash
-   npm run dev
+   bun run dev
    ```
 4. Abre [http://localhost:5173](http://localhost:5173) en tu navegador
 
